@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#3366cc" />
+  <meta name="description" content="Случайные статьи из Википедии — откройте неожиданную страницу одним нажатием." />
+  <title>Случайная Википедия</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png" />
+  <link rel="shortcut icon" href="favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="header__brand">
+        <img class="header__logo" src="favicon-48.png" width="48" height="48" alt="" aria-hidden="true" />
+        <div>
+          <h1 class="header__title">Случайная Википедия</h1>
+          <p class="header__subtitle">Смахните карточку влево — откроется следующая статья</p>
+        </div>
+      </div>
+      <div class="header__controls">
+        <label class="lang-select">
+          <span class="lang-select__label">Язык</span>
+          <select id="wiki-lang" aria-label="Язык Википедии">
+            <option value="ru" selected>Русский</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </label>
+        <button type="button" id="btn-next" class="btn btn--primary">
+          <span class="btn__icon" aria-hidden="true">↻</span>
+          Следующая статья
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div id="state-loading" class="state state--loading" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Загружаем случайную статью…</p>
+      </div>
+
+      <div id="state-error" class="state state--error" hidden>
+        <p id="error-message">Не удалось загрузить статью.</p>
+        <button type="button" id="btn-retry" class="btn btn--secondary">Попробовать снова</button>
+      </div>
+
+      <div id="card-stack" class="card-stack" hidden>
+        <p class="card-stack__hint" id="card-hint">← Смахните влево для следующей статьи</p>
+        <article id="article" class="article card">
+          <div class="card__strip" id="card-strip" aria-label="Смахните влево для следующей статьи">
+            <span class="card__strip-label" id="card-strip-label">← Смахните влево</span>
+          </div>
+          <div class="article__scroll">
+            <div class="article__hero">
+              <div class="article__meta">
+                <span class="article__badge">Случайная статья</span>
+                <time id="article-date" class="article__date"></time>
+              </div>
+              <h2 id="article-title" class="article__title"></h2>
+              <a id="article-link" class="article__link" href="#" target="_blank" rel="noopener noreferrer">
+                Читать на Википедии →
+              </a>
+            </div>
+            <figure id="article-figure" class="article__figure" hidden>
+              <img id="article-image" class="article__image" alt="" loading="lazy" draggable="false" />
+            </figure>
+            <div id="article-extract" class="article__extract"></div>
+          </div>
+        </article>
+      </div>
+
+      <details id="wiki-game" class="wiki-game" hidden>
+        <summary class="wiki-game__summary">Путь до «Адика» по ссылкам Википедии</summary>
+        <p class="wiki-game__hint">
+          Минимальное число переходов по синим ссылкам между статьями (как в игре «Wiki»):
+        </p>
+        <ul id="wiki-game-results" class="wiki-game__list"></ul>
+        <p class="wiki-game__note">
+          Поиск ограничен 10 шагами. Для de/en стартовая статья берётся из языковой связи с текущей.
+        </p>
+      </details>
+    </main>
+
+    <footer class="footer">
+      <p>Данные предоставлены <a href="https://www.wikimedia.org/" target="_blank" rel="noopener noreferrer">Wikimedia Foundation</a></p>
+    </footer>
+  </div>
+
+  <script src="wiki-path.js"></script>
+  <script src="card-swipe.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
