@@ -10,6 +10,7 @@ const UI = {
   errorMessage: document.getElementById("error-message"),
   cardStack: document.getElementById("card-stack"),
   cardHint: document.getElementById("card-hint"),
+  cardStrip: document.getElementById("card-strip"),
   article: document.getElementById("article"),
   title: document.getElementById("article-title"),
   link: document.getElementById("article-link"),
@@ -230,9 +231,17 @@ function setView(view) {
   }
 }
 
-function scrollToArticleTop(smooth = false) {
+function scrollToCardAnchor(smooth = false) {
+  const anchor = UI.cardStrip || UI.cardStack;
+  if (!anchor) {
+    window.scrollTo({ top: 0, left: 0, behavior: smooth ? "smooth" : "auto" });
+    return;
+  }
+
+  const offset = 12;
+  const top = anchor.getBoundingClientRect().top + window.scrollY - offset;
   window.scrollTo({
-    top: 0,
+    top: Math.max(0, top),
     left: 0,
     behavior: smooth ? "smooth" : "auto",
   });
@@ -447,7 +456,7 @@ function renderArticle(data) {
   resetWikiGame();
   UI.wikiGame.hidden = false;
 
-  requestAnimationFrame(() => scrollToArticleTop(data.smoothScroll));
+  requestAnimationFrame(() => scrollToCardAnchor(data.smoothScroll));
 }
 
 async function fetchRandomTitle(lang) {
