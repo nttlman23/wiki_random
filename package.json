@@ -1,0 +1,25 @@
+{
+  "name": "wiki-random",
+  "version": "1.0.0",
+  "description": "Random Wikipedia articles viewer",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "echo 'No linter configured'"
+  },
+  "keywords": [
+    "wikipedia",
+    "random",
+    "articles"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.21"
+  }
+}
